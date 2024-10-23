@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 
 // Middleware para servir archivos estáticos (como index.html, CSS, etc.)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 // Configuración de Nodemailer utilizando variables de entorno
 const transporter = nodemailer.createTransport({
