@@ -145,36 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sendEmailsButton.addEventListener('click', () => {
         const email1 = document.getElementById('emailInput1').value;
         const email2 = document.getElementById('emailInput2').value;
-        
+
         if (!validateEmail(email1) || !validateEmail(email2)) {
             alert('Please enter valid email addresses.');
             return;
         }
-        
-        // Enviar la solicitud POST al servidor
-        fetch('http://localhost:3000/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email1: email1,
-                email2: email2,
-                message: `You have an event: ${eventMessage}`
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Emails sent successfully');
-            } else {
-                alert('Error sending emails');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error sending emails');
-        });
-        
+
+        console.log(`Sending notification emails to ${email1} and ${email2} about the event: ${eventMessage}`);
+
         eventModal.style.display = "none";  // Cerrar el modal
     });
 
@@ -195,4 +173,42 @@ document.addEventListener('DOMContentLoaded', () => {
             eventModal.style.display = "none";
         }
     });
+
+    // Enviar correos electrónicos
+sendEmailsButton.addEventListener('click', () => {
+    const email1 = document.getElementById('emailInput1').value;
+    const email2 = document.getElementById('emailInput2').value;
+    
+    if (!validateEmail(email1) || !validateEmail(email2)) {
+        alert('Please enter valid email addresses.');
+        return;
+    }
+    
+    // Enviar la solicitud POST al servidor
+    fetch('http://localhost:3000/send-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email1: email1,
+            email2: email2,
+            message: `You have an event: ${eventMessage}`
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Emails sent successfully');
+        } else {
+            alert('Error sending emails');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error sending emails');
+    });
+    
+    eventModal.style.display = "none";  // Cerrar el modal
+});
+
 });
