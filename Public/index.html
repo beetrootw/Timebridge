@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prev-month">Previous</button>
+            <span id="current-month">October 2024</span>
+            <button id="next-month">Next</button>
+        </div>
+
+        <div class="calendar">
+            <div class="day-labels">
+                <div>Monday</div>
+                <div>Tuesday</div>
+                <div>Wednesday</div>
+                <div>Thursday</div>
+                <div>Friday</div>
+                <div>Saturday</div>
+                <div>Sunday</div>
+            </div>
+            <div class="dates-grid">
+                <!-- Fechas generadas dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <div class="countdown-container">
+        <h2>Time left until your encounter:</h2>
+        <p id="countdown">No date selected</p>
+    </div>
+
+    <!-- Modal para ingresar el evento -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter the special occasion:</h2>
+            <input type="text" id="eventInput" placeholder="e.g., Reunion with my boy">
+            <button id="saveEvent">Save Event</button>
+
+            <!-- Inputs para correos electrónicos ocultos por defecto -->
+            <div id="emailSection" style="display: none;">
+                <h3>Enter emails for notifications:</h3>
+                <input type="email" id="emailInput1" placeholder="Enter first email">
+                <input type="email" id="emailInput2" placeholder="Enter second email">
+                <button id="sendEmails">Send Emails</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
