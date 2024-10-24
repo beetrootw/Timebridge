@@ -1,7 +1,6 @@
 // Importar dependencias
 const express = require('express');
 const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
 const path = require('path');  // Necesario para servir archivos estáticos
 require('dotenv').config();  // Cargar variables de entorno desde el archivo .env
 
@@ -9,7 +8,7 @@ const app = express();
 const port = 3000;
 
 // Middleware para servir archivos estáticos (como index.html, CSS, etc.)
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuración de Nodemailer utilizando variables de entorno
 const transporter = nodemailer.createTransport({
@@ -21,7 +20,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Middleware para parsear JSON
-app.use(bodyParser.json());
+app.use(express.json());  // Se recomienda usar express.json() para versiones modernas
 
 // Ruta para manejar el envío de correos electrónicos
 app.post('/send-email', (req, res) => {
