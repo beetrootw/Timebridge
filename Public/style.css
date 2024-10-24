@@ -100,7 +100,7 @@ button:hover {
   font-weight: bold;
 }
 .past-date {
-  animation: fadeOut 2s ease-out forwards;
+  animation: fadeOut 3s ease-out forwards;
 }
 
 /*@keyframes fadeOut {
