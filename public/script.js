@@ -14,31 +14,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.querySelector('.close');
     const saveEventButton = document.getElementById('saveEvent');
     const eventInput = document.getElementById('eventInput');
-    const emailSection = document.getElementById('emailSection');  // Email section hidden
+    const emailSection = document.getElementById('emailSection');
     const sendEmailsButton = document.getElementById('sendEmails');
     
-    // Get the current month and year when the page loads
     let currentYear = new Date().getFullYear();
-    let currentMonth = new Date().getMonth(); // Current month (0 = January, 1 = February, etc.)
-    const today = new Date(); // Save the current date for comparison later
+    let currentMonth = new Date().getMonth();
+    const today = new Date();
 
-    // Function to generate the calendar
     function generateCalendar(year, month) {
         datesGrid.innerHTML = '';  // Clear previous dates
-
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         let firstDay = new Date(year, month, 1).getDay();
         firstDay = (firstDay === 0) ? 6 : firstDay - 1;  // Adjust to make Monday the first day
-
-        // Get the number of days in the previous month to disable visible ones
         const daysInPreviousMonth = new Date(year, month, 0).getDate();
 
-        // Add previous month's days that appear at the beginning
         for (let i = firstDay; i > 0; i--) {
             const emptyDiv = document.createElement('div');
             emptyDiv.className = 'date past-month';
-            emptyDiv.textContent = daysInPreviousMonth - (i - 1);  // Show the day number from the previous month
-            emptyDiv.style.pointerEvents = 'none';  // Disable clicks
+            emptyDiv.textContent = daysInPreviousMonth - (i - 1);
+            emptyDiv.style.pointerEvents = 'none';
             datesGrid.appendChild(emptyDiv);
         }
 
@@ -49,22 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const currentDate = new Date(year, month, i);
 
-            // If it's the current day, highlight it as selectable
             if (currentDate.toDateString() === today.toDateString()) {
                 dateDiv.classList.add('today');
-            }
-            // Disable past days except for the current day
-            else if (currentDate < today && (year === today.getFullYear() && month === today.getMonth())) {
+            } else if (currentDate < today && (year === today.getFullYear() && month === today.getMonth())) {
                 dateDiv.classList.add('past-date');
-                dateDiv.style.pointerEvents = 'none';  // Disable clicks
+                dateDiv.style.pointerEvents = 'none';
             }
 
-            // Highlight the selected date for the event
             if (encounterDate && year === encounterDate.year && month === encounterDate.month && i === encounterDate.day) {
                 dateDiv.classList.add('event-day');
             }
 
-            // Click event to select dates
             dateDiv.addEventListener('click', function () {
                 const selectedDate = new Date(year, month, i);
                 encounterDate = {
@@ -77,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     clearInterval(countdownInterval);
                 }
 
-                // Open the modal to enter the event
                 eventModal.style.display = "block";
             });
 
@@ -88,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMonthElement.textContent = `${monthNames[month]} ${year}`;
     }
 
-    // Initialize the calendar for the current month
     generateCalendar(currentYear, currentMonth);
 
     prevMonthButton.addEventListener('click', () => {
@@ -109,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         generateCalendar(currentYear, currentMonth);
     });
 
-    // Function to start the countdown
     function startCountdown(encounterDate, eventMessage) {
         function updateCountdown() {
             const now = new Date();
@@ -133,15 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCountdown();
     }
 
-    // Save the event and display the email inputs
     saveEventButton.addEventListener('click', () => {
-        eventMessage = eventInput.value || "encounter";  // Use custom or default message
-
-        // Show the email input section after saving the event
-        emailSection.style.display = "block";  // Show the email section
+        eventMessage = eventInput.value || "encounter";
+        startCountdown(encounterDate, eventMessage);
+        emailSection.style.display = "block";
     });
 
-    // Send emails
     sendEmailsButton.addEventListener('click', () => {
         const email1 = document.getElementById('emailInput1').value;
         const email2 = document.getElementById('emailInput2').value;
@@ -151,10 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log(`Sending notification emails to ${email1} and ${email2} about the event: ${eventMessage}`);
-
-        // Send POST request to server with CORS headers
-        fetch('https://timebridge.onrender.com/send-email', {
+        fetch('https://your-server-url/send-email', {  // Update with your server URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -177,21 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error sending emails');
         });
 
-        eventModal.style.display = "none";  // Close the modal
+        eventModal.style.display = "none";
     });
 
-    // Simple function to validate emails
     function validateEmail(email) {
         const re = /\S+@\S+\.\S+/;
         return re.test(email);
     }
 
-    // Close the modal by clicking on the "X"
     closeModal.addEventListener('click', () => {
         eventModal.style.display = "none";
     });
 
-    // Close the modal if the user clicks outside the modal
     window.addEventListener('click', (event) => {
         if (event.target === eventModal) {
             eventModal.style.display = "none";
