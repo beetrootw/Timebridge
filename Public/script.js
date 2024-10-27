@@ -5,40 +5,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextMonthButton = document.getElementById('next-month');
     const countdownElement = document.getElementById('countdown');
     
-    let encounterDate = null;  // Fecha del evento
-    let countdownInterval = null;  // Intervalo del contador
-    let eventMessage = "encounter";  // Mensaje por defecto si no se personaliza
+    let encounterDate = null;  // Event date
+    let countdownInterval = null;  // Countdown interval
+    let eventMessage = "encounter";  // Default message if not customized
 
     // Modal elements
     const eventModal = document.getElementById('eventModal');
     const closeModal = document.querySelector('.close');
     const saveEventButton = document.getElementById('saveEvent');
     const eventInput = document.getElementById('eventInput');
-    const emailSection = document.getElementById('emailSection');  // Sección de emails oculta
+    const emailSection = document.getElementById('emailSection');  // Email section hidden
     const sendEmailsButton = document.getElementById('sendEmails');
     
-    // Obtener el mes y año actual al cargar la página
+    // Get the current month and year when the page loads
     let currentYear = new Date().getFullYear();
-    let currentMonth = new Date().getMonth(); // Mes actual (0 = Enero, 1 = Febrero, etc.)
-    const today = new Date(); // Guardar la fecha actual para comparar más adelante
+    let currentMonth = new Date().getMonth(); // Current month (0 = January, 1 = February, etc.)
+    const today = new Date(); // Save the current date for comparison later
 
-    // Función para generar el calendario
+    // Function to generate the calendar
     function generateCalendar(year, month) {
-        datesGrid.innerHTML = '';  // Limpiar fechas anteriores
+        datesGrid.innerHTML = '';  // Clear previous dates
 
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         let firstDay = new Date(year, month, 1).getDay();
-        firstDay = (firstDay === 0) ? 6 : firstDay - 1;  // Ajustar para que lunes sea el primer día
+        firstDay = (firstDay === 0) ? 6 : firstDay - 1;  // Adjust to make Monday the first day
 
-        // Obtener el número de días del mes anterior para deshabilitar los visibles
+        // Get the number of days in the previous month to disable visible ones
         const daysInPreviousMonth = new Date(year, month, 0).getDate();
 
-        // Agregar los días del mes anterior que aparecen al inicio
+        // Add previous month's days that appear at the beginning
         for (let i = firstDay; i > 0; i--) {
             const emptyDiv = document.createElement('div');
             emptyDiv.className = 'date past-month';
-            emptyDiv.textContent = daysInPreviousMonth - (i - 1);  // Mostrar el número del día del mes anterior
-            emptyDiv.style.pointerEvents = 'none';  // Desactivar clics
+            emptyDiv.textContent = daysInPreviousMonth - (i - 1);  // Show the day number from the previous month
+            emptyDiv.style.pointerEvents = 'none';  // Disable clicks
             datesGrid.appendChild(emptyDiv);
         }
 
@@ -49,22 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const currentDate = new Date(year, month, i);
 
-            // Si es el día actual, resáltalo como seleccionable
+            // If it's the current day, highlight it as selectable
             if (currentDate.toDateString() === today.toDateString()) {
                 dateDiv.classList.add('today');
             }
-            // Desactivar los días pasados, excepto el día actual
+            // Disable past days except for the current day
             else if (currentDate < today && (year === today.getFullYear() && month === today.getMonth())) {
                 dateDiv.classList.add('past-date');
-                dateDiv.style.pointerEvents = 'none';  // Desactivar clics
+                dateDiv.style.pointerEvents = 'none';  // Disable clicks
             }
 
-            // Resaltar la fecha seleccionada para el evento
+            // Highlight the selected date for the event
             if (encounterDate && year === encounterDate.year && month === encounterDate.month && i === encounterDate.day) {
                 dateDiv.classList.add('event-day');
             }
 
-            // Evento de clic para seleccionar fechas
+            // Click event to select dates
             dateDiv.addEventListener('click', function () {
                 const selectedDate = new Date(year, month, i);
                 encounterDate = {
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     clearInterval(countdownInterval);
                 }
 
-                // Abrir el modal para ingresar el evento
+                // Open the modal to enter the event
                 eventModal.style.display = "block";
             });
 
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMonthElement.textContent = `${monthNames[month]} ${year}`;
     }
 
-    // Inicializar el calendario para el mes actual
+    // Initialize the calendar for the current month
     generateCalendar(currentYear, currentMonth);
 
     prevMonthButton.addEventListener('click', () => {
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         generateCalendar(currentYear, currentMonth);
     });
 
-    // Función para comenzar el conteo regresivo
+    // Function to start the countdown
     function startCountdown(encounterDate, eventMessage) {
         function updateCountdown() {
             const now = new Date();
@@ -133,15 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCountdown();
     }
 
-    // Guardar el evento y mostrar los inputs de correos
+    // Save the event and display the email inputs
     saveEventButton.addEventListener('click', () => {
-        eventMessage = eventInput.value || "encounter";  // Usar mensaje personalizado o default
+        eventMessage = eventInput.value || "encounter";  // Use custom or default message
 
-        // Mostrar los inputs de correo electrónico después de guardar el evento
-        emailSection.style.display = "block";  // Mostrar la sección de correos
+        // Show the email input section after saving the event
+        emailSection.style.display = "block";  // Show the email section
     });
 
-    // Enviar correos electrónicos
+    // Send emails
     sendEmailsButton.addEventListener('click', () => {
         const email1 = document.getElementById('emailInput1').value;
         const email2 = document.getElementById('emailInput2').value;
@@ -153,28 +153,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`Sending notification emails to ${email1} and ${email2} about the event: ${eventMessage}`);
 
-        eventModal.style.display = "none";  // Cerrar el modal
+        eventModal.style.display = "none";  // Close the modal
     });
 
-    // Función simple para validar correos electrónicos
+    // Simple function to validate emails
     function validateEmail(email) {
         const re = /\S+@\S+\.\S+/;
         return re.test(email);
     }
 
-    // Cerrar el modal al hacer clic en la "X"
+    // Close the modal by clicking on the "X"
     closeModal.addEventListener('click', () => {
         eventModal.style.display = "none";
     });
 
-    // Cerrar el modal si el usuario hace clic fuera del modal
+    // Close the modal if the user clicks outside the modal
     window.addEventListener('click', (event) => {
         if (event.target === eventModal) {
             eventModal.style.display = "none";
         }
     });
 
-    // Enviar correos electrónicos
+    // Send emails
 sendEmailsButton.addEventListener('click', () => {
     const email1 = document.getElementById('emailInput1').value;
     const email2 = document.getElementById('emailInput2').value;
@@ -184,7 +184,7 @@ sendEmailsButton.addEventListener('click', () => {
         return;
     }
     
-    // Enviar la solicitud POST al servidor
+    // Send POST request to server
     fetch('http://localhost:3000/send-email', {
         method: 'POST',
         headers: {
@@ -208,7 +208,7 @@ sendEmailsButton.addEventListener('click', () => {
         alert('Error sending emails');
     });
     
-    eventModal.style.display = "none";  // Cerrar el modal
+    eventModal.style.display = "none";  // Close the modal
 });
 
 });

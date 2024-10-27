@@ -1,12 +1,11 @@
-# Ignorar dependencias de npm
+# Ignore npm dependencies
 node_modules/
 
-# Ignorar archivos de configuración de entorno
+# Ignore environment configuration files
 .env
 
-# Ignorar archivos de log
+# Ignore log files
 *.log
 
-
-# Ignorar carpetas generadas por el sistema operativo (MacOS)
+# Ignore system-generated folders (MacOS)
 .DS_Store

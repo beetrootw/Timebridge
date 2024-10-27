@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Content Security Policy ajustada para permitir scripts de vercel.live -->
+    <!-- Content Security Policy adjusted to allow scripts from vercel.live -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://vercel.live 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self' https://vercel.live; img-src 'self';">
 
     <title>Interactive Calendar</title>
@@ -30,7 +30,7 @@
                 <div>Sunday</div>
             </div>
             <div class="dates-grid">
-                <!-- Fechas generadas dinámicamente -->
+                <!-- Dynamically generated dates -->
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <p id="countdown">No date selected</p>
     </div>
 
-    <!-- Modal para ingresar el evento -->
+    <!-- Modal to enter the event -->
     <div id="eventModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -48,7 +48,7 @@
             <input type="text" id="eventInput" placeholder="e.g., Reunion with my boy">
             <button id="saveEvent">Save Event</button>
 
-            <!-- Inputs para correos electrónicos ocultos por defecto -->
+            <!-- Inputs for emails hidden by default -->
             <div id="emailSection" style="display: none;">
                 <h3>Enter emails for notifications:</h3>
                 <input type="email" id="emailInput1" placeholder="Enter first email">

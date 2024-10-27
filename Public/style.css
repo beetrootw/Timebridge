@@ -47,7 +47,7 @@ button:hover {
 
 .day-labels {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días de la semana */
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for the days of the week */
   gap: 10px;
   font-weight: bold;
   text-align: center;
@@ -55,7 +55,7 @@ button:hover {
 
 .dates-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columnas para las fechas */
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for the dates */
   gap: 10px;
   max-width: 1000px;
 }
@@ -73,7 +73,7 @@ button:hover {
   color: white;
 }
 .encounter {
-  background-color: #ff4081; /* Color especial para las fechas de encuentro */
+  background-color: #ff4081; /* Special color for encounter dates */
   color: white;
   font-weight: bold;
 }
@@ -87,15 +87,15 @@ button:hover {
   font-weight: bold;
   color: #333;
 }
-/*This is the background color for the past dates*/
+/* This is the background color for past dates */
 .past-date {
   background-color: #f48fb1;
   color: #fff;
-  pointer-events: none; /* Desactivar clics en los días pasados */
+  pointer-events: none; /* Disable clicks on past days */
 }
 
 .encounter {
-  background-color: #ff4081; /* Color especial para las fechas de encuentro */
+  background-color: #ff4081; /* Special color for encounter dates */
   color: white;
   font-weight: bold;
 }
@@ -112,7 +112,7 @@ button:hover {
   }
 }/*
 
-/* Estilos para el modal */
+/* Styles for the modal */
 .modal {
   display: none;
   position: fixed;
@@ -149,28 +149,26 @@ button:hover {
   cursor: pointer;
 }
 .event-day {
-  background-color: #183e92; /* Color verde para días con eventos */
+  background-color: #183e92; /* Blue color for event days */
   color: white;
   font-weight: bold;
 }
 
 .past-date {
-    background-color: #f8bbd0; /* Color rosa más claro para días pasados */
+    background-color: #f8bbd0; /* Lighter pink color for past days */
     color: #fff;
-    pointer-events: none; /* Desactivar clics en los días pasados */
+    pointer-events: none; /* Disable clicks on past days */
 }
 
 .event-day {
-    background-color: #4caf50;  /* Color verde para el día del evento */
+    background-color: #4caf50;  /* Green color for event day */
     color: white;
     font-weight: bold;
 }
 
 
 .past-month {
-  background-color: #f8bbd0; /* Color rosa más claro para los días del mes anterior */
+  background-color: #f8bbd0; /* Lighter pink color for previous month's days */
   color: #fff;
-  pointer-events: none; /* Desactivar clics en los días del mes anterior */
+  pointer-events: none; /* Disable clicks on previous month's days */
 }
-
-

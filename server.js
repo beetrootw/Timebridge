@@ -1,49 +1,53 @@
-// Importar dependencias
+// Import dependencies
 const express = require('express');
 const nodemailer = require('nodemailer');
-const path = require('path');  // Necesario para servir archivos estáticos
-require('dotenv').config();  // Cargar variables de entorno desde el archivo .env
+const path = require('path');  // Needed to serve static files
+require('dotenv').config();  // Load environment variables from the .env file
 
 const app = express();
 const port = 3000;
 
-// Middleware para servir archivos estáticos (como index.html, CSS, etc.)
+// Middleware to serve static files (such as index.html, CSS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configuración de Nodemailer utilizando variables de entorno
+// Nodemailer configuration using environment variables
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL, // Variable de entorno
-    pass: process.env.PASSWORD // Variable de entorno
+    user: process.env.EMAIL, // Environment variable
+    pass: process.env.PASSWORD // Environment variable
   }
 });
 
-// Middleware para parsear JSON
-app.use(express.json());  // Se recomienda usar express.json() para versiones modernas
+// Middleware to parse JSON
+app.use(express.json());  // Recommended to use express.json() for modern versions
 
-// Ruta para manejar el envío de correos electrónicos
+// Route to handle email sending
 app.post('/send-email', (req, res) => {
   const { email1, email2, message } = req.body;
   const mailOptions = {
-    from: process.env.EMAIL, // Usar el email desde las variables de entorno
-    to: `${email1}, ${email2}`, // Destinatarios
-    subject: 'Notification about your event', // Asunto
-    text: message // Cuerpo del correo
+    from: process.env.EMAIL, // Use the email from environment variables
+    to: `${email1}, ${email2}`, // Recipients
+    subject: 'Notification about your event', // Subject
+    text: message // Email body
   };
 
-  // Enviar el correo
+  // Send the email
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error('Error al enviar el correo:', error); // Imprimir el error en la consola del servidor
-      return res.status(500).send('Error al enviar el correo: ' + error.toString());
+      console.error('Error sending email:', error); // Print the error on the server console
+      return res.status(500).send('Error sending email: ' + error.toString());
     }
-    res.status(200).send('Correo enviado: ' + info.response);
+    res.status(200).send('Email sent: ' + info.response);
   });
 });
 
-// Ruta para manejar todos los GET (incluyendo "/")
+// Route to handle all GET requests (including "/")
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-;
+
+// Start the server on port 3000
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
