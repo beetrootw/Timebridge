@@ -5,7 +5,7 @@ const path = require('path');  // Needed to serve static files
 require('dotenv').config();  // Load environment variables from the .env file
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware to serve static files (such as index.html, CSS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
