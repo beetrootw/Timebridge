@@ -2,10 +2,18 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const path = require('path');  // Needed to serve static files
+const cors = require('cors');  // Import cors for handling CORS issues
 require('dotenv').config();  // Load environment variables from the .env file
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Enable CORS for your frontend’s URL
+app.use(cors({
+  origin: 'https://timebridge.onrender.com', // Replace with your frontend's URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
 
 // Middleware to serve static files (such as index.html, CSS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,7 +55,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start the server on port 3000
+// Start the server on port
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

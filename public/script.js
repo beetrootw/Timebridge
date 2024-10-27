@@ -153,6 +153,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(`Sending notification emails to ${email1} and ${email2} about the event: ${eventMessage}`);
 
+        // Send POST request to server with CORS headers
+        fetch('https://timebridge.onrender.com/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email1: email1,
+                email2: email2,
+                message: `You have an event: ${eventMessage}`
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Emails sent successfully');
+            } else {
+                alert('Error sending emails');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error sending emails');
+        });
+
         eventModal.style.display = "none";  // Close the modal
     });
 
@@ -173,42 +197,4 @@ document.addEventListener('DOMContentLoaded', () => {
             eventModal.style.display = "none";
         }
     });
-
-    // Send emails
-sendEmailsButton.addEventListener('click', () => {
-    const email1 = document.getElementById('emailInput1').value;
-    const email2 = document.getElementById('emailInput2').value;
-    
-    if (!validateEmail(email1) || !validateEmail(email2)) {
-        alert('Please enter valid email addresses.');
-        return;
-    }
-    
-    // Send POST request to server
-    fetch('http://localhost:3000/send-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email1: email1,
-            email2: email2,
-            message: `You have an event: ${eventMessage}`
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Emails sent successfully');
-        } else {
-            alert('Error sending emails');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error sending emails');
-    });
-    
-    eventModal.style.display = "none";  // Close the modal
-});
-
 });
