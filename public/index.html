@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Interactive Calendar</title>
     <link rel="stylesheet" href="/style.css">
-
 </head>
 <body>
     <div class="calendar-container">
@@ -15,7 +13,6 @@
             <span id="current-month">October 2024</span>
             <button id="next-month">Next</button>
         </div>
-
         <div class="calendar">
             <div class="day-labels">
                 <div>Monday</div>
@@ -31,30 +28,24 @@
             </div>
         </div>
     </div>
-
     <div class="countdown-container">
         <h2>Time left until your encounter:</h2>
         <p id="countdown">No date selected</p>
     </div>
-
     <!-- Modal to enter the event -->
     <div id="eventModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Enter the special occasion:</h2>
             <input type="text" id="eventInput" placeholder="e.g., Reunion with my boy">
-            <button id="saveEvent">Save Event</button>
-
-            <!-- Inputs for emails hidden by default -->
-            <div id="emailSection" style="display: none;">
+            <div id="emailSection">
                 <h3>Enter emails for notifications:</h3>
                 <input type="email" id="emailInput1" placeholder="Enter first email">
                 <input type="email" id="emailInput2" placeholder="Enter second email">
-                <button id="sendEmails">Send Emails</button>
             </div>
+            <button id="saveEvent">Save Event</button> <!-- Only one button to handle both actions -->
         </div>
     </div>
-
     <script src="/script.js"></script>
 </body>
 </html>

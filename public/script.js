@@ -4,26 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevMonthButton = document.getElementById('prev-month');
     const nextMonthButton = document.getElementById('next-month');
     const countdownElement = document.getElementById('countdown');
-    
-    let encounterDate = null;
-    let countdownInterval = null;
-    let eventMessage = "encounter";
-
     const eventModal = document.getElementById('eventModal');
     const closeModal = document.querySelector('.close');
     const saveEventButton = document.getElementById('saveEvent');
     const eventInput = document.getElementById('eventInput');
     const emailSection = document.getElementById('emailSection');
+    let encounterDate = null;
+    let countdownInterval = null;
+    let eventMessage = "encounter";
 
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
     const today = new Date();
 
     function generateCalendar(year, month) {
-        datesGrid.innerHTML = '';
+        datesGrid.innerHTML = '';  
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         let firstDay = new Date(year, month, 1).getDay();
-        firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+        firstDay = (firstDay === 0) ? 6 : firstDay - 1;  
         const daysInPreviousMonth = new Date(year, month, 0).getDate();
 
         for (let i = firstDay; i > 0; i--) {
@@ -40,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
             dateDiv.textContent = i;
 
             const currentDate = new Date(year, month, i);
-
             if (currentDate.toDateString() === today.toDateString()) {
                 dateDiv.classList.add('today');
             } else if (currentDate < today && (year === today.getFullYear() && month === today.getMonth())) {
@@ -63,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (countdownInterval) {
                     clearInterval(countdownInterval);
                 }
-
                 eventModal.style.display = "block";
             });
 
@@ -120,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveEventButton.addEventListener('click', () => {
         eventMessage = eventInput.value || "encounter";
         startCountdown(encounterDate, eventMessage);
-
+        
         const email1 = document.getElementById('emailInput1').value;
         const email2 = document.getElementById('emailInput2').value;
 
@@ -129,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('https://timebridge.vercel.app/send-email', {  // Update with your server URL
+        fetch('https://your-server-url/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -142,14 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                alert('Event saved, and emails sent successfully');
+                alert('Event saved and emails sent successfully');
             } else {
-                alert('Event saved, but there was an error sending emails');
+                alert('Error saving event and sending emails');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Event saved, but an error occurred while sending emails');
+            alert('Error saving event and sending emails');
         });
 
         eventModal.style.display = "none";
