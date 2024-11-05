@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('https://your-server-url/send-email', {
+        fetch('https://timebridge.vercel.app/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
