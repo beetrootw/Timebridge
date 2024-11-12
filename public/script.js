@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('https://your-app-name.onrender.com/send-email', {  // Update with your Render URL
+        fetch('https://timebridge.onrender.com/send-email', {  // Updated with your Render URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
