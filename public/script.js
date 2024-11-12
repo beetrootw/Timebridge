@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('https://timebridge.vercel.app/send-email', {
+        fetch('https://your-app-name.onrender.com/send-email', {  // Update with your Render URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
